@@ -124,6 +124,11 @@ function BookPage() {
   async function confirm(): Promise<void> {
     if (isTailor ? !neededBy : !date || (!dayOnly && !time)) { toast.error(isTailor ? "Indiquez la date de livraison souhaitée" : dayOnly ? "Choisissez une date" : "Choisissez une date et un créneau"); return; }
     if (location.trim().length < 2) { toast.error("Indiquez le lieu de la prestation"); return; }
+    if (!eventType) { toast.error("Choisissez le type d'événement"); return; }
+    if (guests < 1) { toast.error("Indiquez le nombre d'invités"); return; }
+    if (p.travel_possible && city.trim().length < 2) { toast.error("Indiquez votre ville"); return; }
+    const missing = catQuestions.find((q) => !(answers[q.key] ?? "").trim() || (q.type === "number" && +(answers[q.key] ?? 0) < 1));
+    if (missing) { toast.error(`Répondez à : ${missing.label}`); return; }
     setBusy(true);
     try {
       const { data: b, error } = await supabase.from("bookings").insert({
@@ -245,7 +250,7 @@ function BookPage() {
               <h2 className="font-bold">✨ Vos attentes</h2>
               <p className="text-xs text-muted-foreground">Ces précisions aident le prestataire à préparer exactement ce que vous voulez.</p>
               {catQuestions.map((q) => (
-                <label key={q.key} className="block text-sm font-semibold">{q.label}
+                <label key={q.key} className="block text-sm font-semibold">{q.label} <span className="text-destructive">*</span>
                   {q.type === "select" ? (
                     <select value={answers[q.key] ?? ""} onChange={(e) => setAnswer(q.key, e.target.value)} className="mt-1 w-full rounded-xl border bg-card px-4 py-2.5">
                       <option value="">Choisir…</option>
@@ -273,7 +278,7 @@ function BookPage() {
           )}
           <section className="space-y-3 rounded-2xl border bg-card p-5">
             <h2 className="font-bold">💰 Votre événement</h2>
-            <label className="block text-sm font-semibold">Type d'événement
+            <label className="block text-sm font-semibold">Type d'événement <span className="text-destructive">*</span>
               <select value={eventType} onChange={(e) => setEventType(e.target.value)} className="mt-1 w-full rounded-xl border bg-card px-4 py-2.5">
                 <option value="">Choisir…</option>
                 {EVENT_TYPES.map((t) => <option key={t} value={t}>{t}{eventPrices[t] ? ` (+${fcfa(eventPrices[t])})` : ""}</option>)}
