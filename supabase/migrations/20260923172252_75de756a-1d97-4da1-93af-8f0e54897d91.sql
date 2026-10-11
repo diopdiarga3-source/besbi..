@@ -1,0 +1,13 @@
+revoke execute on function public.providers_guard() from public, anon, authenticated;
+revoke execute on function public.bookings_before_insert() from public, anon, authenticated;
+revoke execute on function public.bookings_after_insert() from public, anon, authenticated;
+revoke execute on function public.messages_after_insert() from public, anon, authenticated;
+revoke execute on function public.reviews_refresh() from public, anon, authenticated;
+revoke execute on function public.handle_new_user() from public, anon, authenticated;
+revoke execute on function public.notify(uuid,text,text,text) from public, anon, authenticated;
+revoke execute on function public.pay_booking(uuid,text,boolean) from public, anon;
+revoke execute on function public.set_booking_status(uuid,booking_status) from public, anon;
+revoke execute on function public.report_review(uuid) from public, anon;
+revoke execute on function public.become_provider() from public, anon;
+revoke execute on function public.is_booking_party(uuid) from public, anon;
+revoke execute on function public.has_role(uuid,app_role) from public, anon;

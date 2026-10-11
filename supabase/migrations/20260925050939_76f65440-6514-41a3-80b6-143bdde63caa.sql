@@ -1,0 +1,3 @@
+ALTER TABLE public.messages ADD COLUMN audio_path text, ADD COLUMN audio_duration integer CHECK (audio_duration IS NULL OR (audio_duration >= 0 AND audio_duration <= 125));
+CREATE POLICY "chat audio read" ON storage.objects FOR SELECT TO authenticated USING (bucket_id='chat-audio' AND public.is_booking_party(((storage.foldername(name))[1])::uuid));
+CREATE POLICY "chat audio upload" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id='chat-audio' AND public.is_booking_party(((storage.foldername(name))[1])::uuid) AND (storage.foldername(name))[2] = auth.uid()::text);

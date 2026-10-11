@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1791287587852,
+      "tag": "0000_push_subscriptions",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791331368394,
+      "tag": "0001_univers_acompte_xaalispay",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791510566857,
+      "tag": "0002_client_can_complete",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791668737034,
+      "tag": "0003_dynamic_pricing",
+      "breakpoints": true
+    }
+  ]
+}

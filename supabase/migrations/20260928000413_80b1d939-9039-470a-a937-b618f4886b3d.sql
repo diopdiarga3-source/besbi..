@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.declare_direct_payment(uuid, text, boolean, text) FROM PUBLIC, anon;
